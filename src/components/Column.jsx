@@ -8,7 +8,8 @@ const Column = ({ name, title, tasks, onMoveTask, onDrop, addTaskComponent }) =>
   };
 
   return (
-    <div
+    // render the each column and manage it 
+    <div 
       className="md:w-1/3 p-4 bg-slate-200 mr-1 h-min:[60vh] bg-opacity-50 
       backdrop-blur-md border border-gray-200 rounded-lg shadow-lg mobile__column"
       onDragOver={(e) => e.preventDefault()}
@@ -22,7 +23,7 @@ const Column = ({ name, title, tasks, onMoveTask, onDrop, addTaskComponent }) =>
       {tasks.map((task) => (
         <Task key={task.id} name={name} task={task} onMove={() => onMoveTask(task.id)} onDragStart={handleDragStart} />
       ))}
-      {name === 'Pending' && addTaskComponent}
+      {name === 'Pending' && addTaskComponent}   
     </div>
   );
 };

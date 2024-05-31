@@ -3,12 +3,14 @@ import Column from './Column';
 import '../App.css';
 const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
+  //uses object for storing the input fields data
   const [todoData, setTodoData] = useState({
     title: '',
     description: ''
   });
+  //this state is use to toggle the button 
   const [showInputFields, setShowInputFields] = useState(false);
-
+    // function to add the Notes first in the Pending section/column
   const addTask = () => {
     if (todoData.title.trim() !== '') {
       const newTask = { id: Date.now(), title: todoData.title, description: todoData.description, status: 'Pending' };
@@ -17,11 +19,11 @@ const ToDoList = () => {
       setShowInputFields(false); // Hide the input fields after adding the task
     }
   };
-
+    // this a function for the handling the input fields and then setting the data to the tasks array
   const handleTodoData = (e) => {
     setTodoData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
+    // conditionally render the button field and the input field
   const addTaskComponent = !showInputFields ? (
     <button
   onClick={() => setShowInputFields(true)}
@@ -62,17 +64,17 @@ const ToDoList = () => {
       </div>
     </>
   );
-
+    //  created a array for the pending Task and the inprogress tasks and the completed tasks
   const [pendingTasks, setPendingTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-
+    // when tasks changes then it renders and the provides the filtered results.
   useEffect(() => {
     setPendingTasks(tasks.filter((task) => task.status === 'Pending'));
     setInProgressTasks(tasks.filter((task) => task.status === 'In Progress'));
     setCompletedTasks(tasks.filter((task) => task.status === 'Completed'));
   }, [tasks]);
-
+     // this function used to move the task
   const moveTask = (id, nextStatus) => {
     setTasks(
       tasks.map((task) =>
@@ -80,7 +82,7 @@ const ToDoList = () => {
       )
     );
   };
-
+    // drag and drop functionality is implemented here
   const handleDrop = (e, targetColumn) => {
     e.preventDefault();
     const task = JSON.parse(e.dataTransfer.getData("task"));
